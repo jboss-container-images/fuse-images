@@ -1,0 +1,36 @@
+- name: builder
+  version: 0.0.1
+  from: registry.redhat.io/ubi8/go-toolset
+  execute:
+    - script: build.sh
+
+- name: rhi-operator
+  version: 0.0.1
+  from: registry.redhat.io/ubi8/ubi-minimal
+  labels:
+    - name: com.company
+      value: Red_Hat
+    - name: rht.prod_name
+      value: Red_Hat_Integration
+    - name: rht.prod_ver
+      value: 1.0.0
+    - name: rht.comp
+      value: rhi_operator
+    - name: rht.comp_ver
+      value: 1.0.0
+    - name: rht.comp_t
+      value: infrastructure
+    - name: com.redhat.component
+      value: rhi_operator
+    - name: name
+      value: rhi_operator
+    - name: version
+      value: 1.0.0
+  artifacts:
+    - name: app
+      image: builder
+      path: /rhi-operator/manager
+      target: manager
+      dest: /
+  run:
+    entrypoint: ["/manager"]
