@@ -1,6 +1,10 @@
 - name: builder
   version: 0.0.1
   from: registry.redhat.io/ubi8/go-toolset
+  artifacts:
+    - name: remote-source
+      path: unpacked_remote_sources
+      dest: /remote-source
   execute:
     - script: build.sh
 
@@ -29,7 +33,7 @@
   artifacts:
     - name: app
       image: builder
-      path: /rhi-operator/manager
+      path: /remote-source/manager
       target: manager
       dest: /
   run:
