@@ -4,7 +4,7 @@
   artifacts:
     - name: remote-source
       path: unpacked_remote_sources
-      dest: /remote-source
+      dest: /remote-source/
   execute:
     - script: build.sh
 
@@ -36,5 +36,13 @@
       path: /remote-source/manager
       target: manager
       dest: /
+  osbs:
+    configuration:
+      container:
+        compose:
+          pulp_repos: true
+    repository:
+      name: containers/rhi-operator
+      branch: fuse-8.0-openshift-rhel-8
   run:
     entrypoint: ["/manager"]
